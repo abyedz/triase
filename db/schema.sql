@@ -58,3 +58,12 @@ CREATE TABLE IF NOT EXISTS auth_attempts (
   count        INTEGER NOT NULL DEFAULT 0,
   locked_until BIGINT NOT NULL DEFAULT 0
 );
+
+-- Keamanan (Supabase): aktifkan RLS tanpa policy agar tabel TIDAK bisa diakses lewat API publik
+-- (anon/publishable key). Aplikasi terhubung langsung sebagai role `postgres` yang melewati RLS.
+ALTER TABLE victims          ENABLE ROW LEVEL SECURITY;
+ALTER TABLE reports          ENABLE ROW LEVEL SECURITY;
+ALTER TABLE usability_tests  ENABLE ROW LEVEL SECURITY;
+ALTER TABLE settings         ENABLE ROW LEVEL SECURITY;
+ALTER TABLE otp_codes        ENABLE ROW LEVEL SECURITY;
+ALTER TABLE auth_attempts    ENABLE ROW LEVEL SECURITY;
